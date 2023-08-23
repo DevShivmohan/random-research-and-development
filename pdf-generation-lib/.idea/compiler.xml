@@ -6,8 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="demolibrary" />
+        <module name="pdf-library" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="demolibrary" target="17" />
+    </bytecodeTargetLevel>
   </component>
 </project>
