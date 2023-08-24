@@ -8,5 +8,6 @@
 - ![image](https://github.com/DevShivmohan/random-tasks/assets/72655528/13ce4b5d-cefc-4cc0-850f-b1d2958b398a).
 - Generated a jar file inside the lib/build/libs/ directory upon successful execution, as shown in below screenshot.
 - ![image](https://github.com/DevShivmohan/random-tasks/assets/72655528/fe80a9d9-5a78-4dce-a93c-cbfa76cf46a6).
-- Now you can add this jar file in your project and use it as a library.
+- Now you can add this jar file in your project and use it as a library, for i.e. shown in below screenshot.
+- ![image](https://github.com/DevShivmohan/random-tasks/assets/72655528/1989c152-1b43-4f6f-b4a4-a4b6d27603b6)
 - Done.
