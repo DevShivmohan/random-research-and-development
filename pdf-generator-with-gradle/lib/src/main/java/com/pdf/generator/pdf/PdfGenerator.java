@@ -1,6 +1,6 @@
-package com.pdf.generator.generator;
+package com.pdf.generator.pdf;
 
-import com.pdf.generator.constants.PdfConstants;
+import com.pdf.generator.constants.LibraryConstants;
 import org.apache.fop.apps.*;
 
 import javax.xml.transform.Result;
@@ -18,7 +18,7 @@ import java.util.UUID;
 public class PdfGenerator {
     private final FopFactory fopFactory;
     public PdfGenerator() {
-        fopFactory = FopFactory.newInstance(new File(PdfConstants.DOT).toURI());
+        fopFactory = FopFactory.newInstance(new File(LibraryConstants.DOT).toURI());
     }
 
     /**
@@ -34,8 +34,8 @@ public class PdfGenerator {
      */
     public String convertToPDF(File xmlFile, File xslFile, File outputDir) throws IOException, TransformerException, FOPException {
         if(!xmlFile.exists() || !xslFile.exists() || !outputDir.isDirectory() || !outputDir.canWrite())
-            throw new IllegalArgumentException(PdfConstants.ERROR_MESSAGE);
-        File pdfFile=new File(outputDir, UUID.randomUUID()+PdfConstants.DOUBLE_UNDERSCORE+System.currentTimeMillis()+PdfConstants.PDF_EXTENSION);
+            throw new IllegalArgumentException(LibraryConstants.ERROR_MESSAGE);
+        File pdfFile=new File(outputDir, UUID.randomUUID()+ LibraryConstants.DOUBLE_UNDERSCORE+System.currentTimeMillis()+ LibraryConstants.PDF_EXTENSION);
         StreamSource xmlStreamSource = new StreamSource(xmlFile);
         FOUserAgent foUserAgent = fopFactory.newFOUserAgent();
         OutputStream pdfOutputStream=new FileOutputStream(pdfFile);
