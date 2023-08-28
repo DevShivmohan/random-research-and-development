@@ -6,9 +6,9 @@ package com.example.postgres;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-class LibraryTest {
+class CustomPostgreSQLProcedureTest {
     @Test void someLibraryMethodReturnsTrue() {
-        Library classUnderTest = new Library();
+        CustomPostgreSQLProcedure classUnderTest = new CustomPostgreSQLProcedure();
         assertTrue(classUnderTest.someLibraryMethod(), "someLibraryMethod should return 'true'");
     }
 }

@@ -3,8 +3,42 @@
  */
 package com.example.postgres;
 
-public class Library {
-    public boolean someLibraryMethod() {
-        return true;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Types;
+
+public class CustomPostgreSQLProcedure {
+    public static void main(String[] args) {
+        String jdbcUrl = "jdbc:postgresql://localhost:5432/postgres";
+        String username = "postgres";
+        String password = "postgres";
+
+        int employeeId = 2; // Replace with the actual employee ID
+
+        try {
+            Connection connection = DriverManager.getConnection(jdbcUrl,username,password);
+
+            // prepare to calling the procedure
+            String call = "{call get_employee_name_by_id(?, ?)}";
+            CallableStatement callableStatement = connection.prepareCall(call);
+
+            // 1 param is in as a input and 2 for returning the result into this param
+            callableStatement.setInt(1, employeeId);
+            callableStatement.registerOutParameter(2, Types.VARCHAR);
+
+            // Executing the query
+            callableStatement.execute();
+
+            // Getting the result value
+            String employeeName = callableStatement.getString(2);
+            System.out.println("Employee Name:- " + employeeName);
+
+            callableStatement.close();
+            connection.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
+
