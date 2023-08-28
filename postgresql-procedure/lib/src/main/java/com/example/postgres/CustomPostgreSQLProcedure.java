@@ -3,42 +3,53 @@
  */
 package com.example.postgres;
 
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.Types;
+import java.sql.*;
 
 public class CustomPostgreSQLProcedure {
-    public static void main(String[] args) {
+    private final Connection connection;
+    public CustomPostgreSQLProcedure() throws SQLException {
         String jdbcUrl = "jdbc:postgresql://localhost:5432/postgres";
         String username = "postgres";
         String password = "postgres";
+        connection = DriverManager.getConnection(jdbcUrl,username,password);
+    }
 
-        int employeeId = 2; // Replace with the actual employee ID
+    /**
+     * Simple JDBC call
+     * @param id
+     * @return
+     * @throws SQLException
+     */
+    public String getNameUsingSimpleJDBCCallProcedure(int id) throws SQLException {
+        PreparedStatement preparedStatement=connection.prepareStatement("select get_employee_name_by_id(?) as e_name");
+        preparedStatement.setInt(1,id);
+        ResultSet resultSet=preparedStatement.executeQuery();
+        String employeeName=resultSet.next() ? resultSet.getString("e_name") : null;
+        resultSet.close();
+        return employeeName;
+    }
 
-        try {
-            Connection connection = DriverManager.getConnection(jdbcUrl,username,password);
+    /**
+     * Using CallableStatement for stored procedure call
+     * @param id
+     * @return
+     * @throws SQLException
+     */
+    public String getNameUsingCallableStatementCallProcedure(int id) throws SQLException {
+        String call = "{call get_employee_name_by_id(?, ?)}";
+        CallableStatement callableStatement = connection.prepareCall(call);
+        callableStatement.setInt(1, id);
+        callableStatement.registerOutParameter(2, Types.VARCHAR);
+        callableStatement.execute();
+        String employeeName = callableStatement.getString(2);
+        callableStatement.close();
+        connection.close();
+        return employeeName;
+    }
 
-            // prepare to calling the procedure
-            String call = "{call get_employee_name_by_id(?, ?)}";
-            CallableStatement callableStatement = connection.prepareCall(call);
-
-            // 1 param is in as a input and 2 for returning the result into this param
-            callableStatement.setInt(1, employeeId);
-            callableStatement.registerOutParameter(2, Types.VARCHAR);
-
-            // Executing the query
-            callableStatement.execute();
-
-            // Getting the result value
-            String employeeName = callableStatement.getString(2);
-            System.out.println("Employee Name:- " + employeeName);
-
-            callableStatement.close();
-            connection.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public static void main(String[] args) throws SQLException {
+        System.out.println(new CustomPostgreSQLProcedure().getNameUsingCallableStatementCallProcedure(1));
+        System.out.println(new CustomPostgreSQLProcedure().getNameUsingSimpleJDBCCallProcedure(2));
     }
 }
 

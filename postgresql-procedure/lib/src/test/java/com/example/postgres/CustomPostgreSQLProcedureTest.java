@@ -4,11 +4,13 @@
 package com.example.postgres;
 
 import org.junit.jupiter.api.Test;
+
+import java.sql.SQLException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class CustomPostgreSQLProcedureTest {
-    @Test void someLibraryMethodReturnsTrue() {
+    @Test void someLibraryMethodReturnsTrue() throws SQLException {
         CustomPostgreSQLProcedure classUnderTest = new CustomPostgreSQLProcedure();
-        assertTrue(classUnderTest.someLibraryMethod(), "someLibraryMethod should return 'true'");
     }
 }

@@ -1,11 +1,11 @@
-CREATE TABLE public.employees (
+CREATE TABLE  employees (
     id INT PRIMARY KEY,
     name VARCHAR(50),
     city VARCHAR(60)
 );
 
 -- For demo purpose we have inserting this record and test it
-insert into public.employees values(1,'Shiv','Noida'),(2,'Mohan','Delhi'),(3,'Shivmohan','Noida sector');
+insert into employees values(1,'Shiv','Noida'),(2,'Mohan','Delhi'),(3,'Shivmohan','Noida sector');
 
 -- This procedure for in as id and return name
 CREATE OR REPLACE FUNCTION get_employee_name_by_id(
@@ -14,7 +14,7 @@ CREATE OR REPLACE FUNCTION get_employee_name_by_id(
 )
 AS $$
 BEGIN
-    SELECT name INTO out_employee_name FROM public.employees WHERE id = in_employee_id;
+    SELECT name INTO out_employee_name FROM employees WHERE id = in_employee_id;
 END;
 $$ LANGUAGE plpgsql;
 
@@ -25,6 +25,6 @@ CREATE OR REPLACE FUNCTION get_employee_name_by_city(
 )
 AS $$
 BEGIN
-    SELECT name INTO out_employee_name FROM public.employees WHERE city = in_city;
+    SELECT name INTO out_employee_name FROM employees WHERE city = in_city;
 END;
 $$ LANGUAGE plpgsql;
