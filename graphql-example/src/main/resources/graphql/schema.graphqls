@@ -1,0 +1,25 @@
+type Student{
+    id:ID! # ID! = Identifier with not nullable value
+    name:String
+    branch:String
+    age:Int
+    isActive:Boolean
+}
+
+# This is for Query language
+type Query{
+    getStudents:[Student]
+    getStudent(id:Int):Student
+}
+
+# This is for insertion updation deletion etc
+type Mutation{
+    addStudent(studentDTO:StudentDTO):Student
+}
+
+input StudentDTO{
+    name:String
+    branch:String
+    age:Int
+    isActive:Boolean
+}
