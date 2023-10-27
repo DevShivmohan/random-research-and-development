@@ -48,7 +48,7 @@
       ```
     - For mutation(Create/Update) of Object example
       ```
-      query{
+      mutation{
           addStudent(studentDTO:{
               # Request body data
               name:"Shiv",
